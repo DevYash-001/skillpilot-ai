@@ -1,0 +1,49 @@
+{
+    "programming" : [
+        "Python",
+        "Git",
+        "Data Structures",
+        "object oriented programming"
+    ],
+    "data_science": [
+        "NUmPy",
+        "Pandas",
+        "Matplotlib",
+        "SQL"
+
+    ],
+    "machine_learnig" : [
+        "Scikit-learn",
+        "Regression",
+        "Classification",
+        "Feature Engineering",
+        "Model Evalution"
+
+    ],
+    "deep_learing": [
+        "Neural Networks",
+        "TensorFlow",
+        "PyTorch",
+        "CNN",
+        "RNN"
+    ],
+    "nlp":[
+        "NLP",
+        "Text Classification",
+        "Transformers",
+        "Embeddings"
+    ],
+    "generative_ai": [
+        "LLM",
+        "Prompt Engineering",
+        "RAG",
+        "Vector Database",
+        "AI Agents"
+    ],
+    "deployment":[
+        "FastAPI",
+        "Docker",
+        "Cloud deployment",
+        "MLOps"
+    ]
+}
