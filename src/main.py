@@ -52,7 +52,51 @@ def get_category_scores(skill_data, user_skills):
 
     return category_scores
 
+def load_skill_dependencies():
+    file_path = (
+        Path(__file__).parent.parent
+        / "data"
+        / "skill_dependencies.json"
+    )
 
+    with open(file_path, "r", encoding="utf-8") as file:
+        return json.load(file)
+def recommend_next_skill(
+    skill_data,
+    user_skills,
+    category_scores
+):
+    user_skills = {skill.lower() for skill in user_skills}
+
+    weakest_category = min(
+        category_scores,
+        key=category_scores.get
+    )
+
+    for skill in skill_data[weakest_category]:
+        if skill.lower() not in user_skills:
+            return skill
+
+    return None
+def recommend_next_skill(
+    skill_data,
+    user_skills,
+    category_scores
+):
+    user_skills = {skill.lower() for skill in user_skills}
+
+    weakest_category = min(
+        category_scores,
+        key=category_scores.get
+    )
+
+    category_skills = skill_data[weakest_category]
+
+    for skill in category_skills:
+        if skill.lower() not in user_skills:
+            return skill
+
+    return None
 def main():
     skill_data = load_skills()
 
@@ -82,7 +126,11 @@ def main():
         skill_data,
         user_skills
     )
-
+    next_skill = recommend_next_skill(
+    skill_data,
+    user_skills,
+    category_scores
+    )
     total_skills = len(required_skills)
     learned_skills = len(have_skills)
 
@@ -99,7 +147,8 @@ def main():
     for category, score in category_scores.items():
         display_name = category.replace("_", " ").title()
         print(f"  {display_name:<20}: {score:.1f}%")
-
+    if next_skill:
+        print(f"\n🎯 RECOMMENDED NEXT SKILL: {next_skill}")
     best_category = max(
         category_scores,
         key=category_scores.get
