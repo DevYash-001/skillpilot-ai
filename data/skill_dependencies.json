@@ -1,0 +1,136 @@
+{
+    "Python": {
+        "category": "programming",
+        "prerequisites": [],
+        "next_skills": [
+            "NumPy",
+            "Pandas",
+            "Object Oriented Programming"
+        ]
+    },
+
+    "NumPy": {
+        "category": "data_science",
+        "prerequisites": [
+            "Python"
+        ],
+        "next_skills": [
+            "Pandas",
+            "Matplotlib"
+        ]
+    },
+
+    "Pandas": {
+        "category": "data_science",
+        "prerequisites": [
+            "Python",
+            "NumPy"
+        ],
+        "next_skills": [
+            "SQL",
+            "Feature Engineering"
+        ]
+    },
+
+    "Scikit-learn": {
+        "category": "machine_learning",
+        "prerequisites": [
+            "Python",
+            "NumPy",
+            "Pandas"
+        ],
+        "next_skills": [
+            "Regression",
+            "Classification",
+            "Model Evaluation"
+        ]
+    },
+
+    "Neural Networks": {
+        "category": "deep_learning",
+        "prerequisites": [
+            "Python",
+            "NumPy",
+            "Machine Learning"
+        ],
+        "next_skills": [
+            "PyTorch",
+            "TensorFlow",
+            "CNN",
+            "RNN"
+        ]
+    },
+
+    "NLP": {
+        "category": "nlp",
+        "prerequisites": [
+            "Python",
+            "Machine Learning"
+        ],
+        "next_skills": [
+            "Text Classification",
+            "Embeddings",
+            "Transformers"
+        ]
+    },
+
+    "Transformers": {
+        "category": "nlp",
+        "prerequisites": [
+            "NLP",
+            "Embeddings"
+        ],
+        "next_skills": [
+            "LLM"
+        ]
+    },
+
+    "LLM": {
+        "category": "generative_ai",
+        "prerequisites": [
+            "Python",
+            "NLP",
+            "Transformers"
+        ],
+        "next_skills": [
+            "Prompt Engineering",
+            "Embeddings",
+            "RAG"
+        ]
+    },
+
+    "RAG": {
+        "category": "generative_ai",
+        "prerequisites": [
+            "LLM",
+            "Embeddings",
+            "Vector Database"
+        ],
+        "next_skills": [
+            "AI Agents"
+        ]
+    },
+
+    "FastAPI": {
+        "category": "deployment",
+        "prerequisites": [
+            "Python"
+        ],
+        "next_skills": [
+            "Docker",
+            "Cloud Deployment"
+        ]
+    },
+
+    "Docker": {
+        "category": "deployment",
+        "prerequisites": [
+            "Python",
+            "FastAPI"
+        ],
+        "next_skills": [
+            "Cloud Deployment",
+            "MLOps"
+        ]
+    }
+}

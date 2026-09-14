@@ -81,9 +81,13 @@ def recommend_next_skill(
 def recommend_next_skill(
     skill_data,
     user_skills,
-    category_scores
+    category_scores,
+    dependency_data
 ):
-    user_skills = {skill.lower() for skill in user_skills}
+    user_skills_lower = {
+        skill.lower()
+        for skill in user_skills
+    }
 
     weakest_category = min(
         category_scores,
@@ -93,13 +97,69 @@ def recommend_next_skill(
     category_skills = skill_data[weakest_category]
 
     for skill in category_skills:
-        if skill.lower() not in user_skills:
+
+        if skill.lower() in user_skills_lower:
+            continue
+
+        if can_learn_skill(
+            skill,
+            user_skills,
+            dependency_data
+        ):
             return skill
 
     return None
+def can_learn_skill(skill, user_skills, dependency_data):
+    user_skills = {
+        item.lower()
+        for item in user_skills
+    }
+
+    skill_info = dependency_data.get(skill)
+
+    if not skill_info:
+        return True
+
+    prerequisites = skill_info.get(
+        "prerequisites",
+        []
+    )
+
+    for prerequisite in prerequisites:
+        if prerequisite.lower() not in user_skills:
+            return False
+
+    return True
+def generate_learning_path(
+    skill_data,
+    user_skills,
+    dependency_data
+):
+    user_skills = {
+        skill.lower()
+        for skill in user_skills
+    }
+
+    learning_path = []
+
+    for category, skills in skill_data.items():
+
+        for skill in skills:
+
+            if skill.lower() in user_skills:
+                continue
+
+            if can_learn_skill(
+                skill,
+                user_skills,
+                dependency_data
+            ):
+                learning_path.append(skill)
+
+    return learning_path
 def main():
     skill_data = load_skills()
-
+    dependency_data = load_skill_dependencies()
     required_skills = get_all_skills(skill_data)
 
     print("=" * 45)
@@ -126,11 +186,17 @@ def main():
         skill_data,
         user_skills
     )
+    learning_path = generate_learning_path(
+    skill_data,
+    user_skills,
+    dependency_data
+)
     next_skill = recommend_next_skill(
     skill_data,
     user_skills,
-    category_scores
-    )
+    category_scores,
+    dependency_data
+)
     total_skills = len(required_skills)
     learned_skills = len(have_skills)
 
@@ -148,7 +214,10 @@ def main():
         display_name = category.replace("_", " ").title()
         print(f"  {display_name:<20}: {score:.1f}%")
     if next_skill:
-        print(f"\n🎯 RECOMMENDED NEXT SKILL: {next_skill}")
+        print(
+        f"\n🎯 RECOMMENDED NEXT SKILL: "
+        f"{next_skill}"
+    )
     best_category = max(
         category_scores,
         key=category_scores.get
@@ -184,7 +253,10 @@ def main():
             f"\n🎯 NEXT SKILL TO LEARN: "
             f"{missing_skills[0]}"
         )
+    print("\n📚 AVAILABLE NEXT SKILLS:")
 
+    for skill in learning_path[:5]:
+        print(f"  → {skill}")
 
 if __name__ == "__main__":
     main()
